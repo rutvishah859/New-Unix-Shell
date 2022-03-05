@@ -8,7 +8,7 @@
 #define pMax _MAX_PATH
 #else
 #include <unistd.h>
-#define pMax PATH_MAX
+#define pMax FILENAME_MAX 
 #endif
 
 #include "myshell.h"
@@ -21,14 +21,13 @@ int main(int argc, char *argv[]) {
 
     char currDir[pMax];
 
-    getcwd(currDir, sizeof(currDir));
-
+    getcwd(currDir, pMax);
     printf("%s$ ", currDir);
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
 
         printf("%s$ ", currDir);
         
-        if(strcmp(command, "quit")){
+        if(strcmp(command, "quit\n") == 0){
 
             break;
         }
