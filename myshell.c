@@ -8,7 +8,7 @@
 #define pMax _MAX_PATH
 #else
 #include <unistd.h>
-#define pMax PATH_MAX
+#define pMax _PC_PATH_MAX
 #endif
 
 #include "myshell.h"
@@ -28,8 +28,7 @@ int main(int argc, char *argv[]) {
 
         printf("%s$ ", currDir);
         
-        if(strcmp(command, "quit")){
-
+        if(strcmp(command, "quit\n") == 0){
             break;
         }
 
