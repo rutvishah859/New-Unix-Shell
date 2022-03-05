@@ -25,6 +25,11 @@ int main(int argc, char *argv[]) {
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
 
         printf("%s: ", currDir);
+        
+        if(strcmp(command, "quit")){
+
+            break;
+        }
 
     }
 }
