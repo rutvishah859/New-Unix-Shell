@@ -8,13 +8,19 @@
 #define pMax _MAX_PATH
 #else
 #include <unistd.h>
-#define pMax _PC_PATH_MAX
+#define pMax FILENAME_MAX
 #endif
 
 #include "myshell.h"
 #include "utility.c"
 
 #define BUFFER_LEN 256
+
+void parseComm(char *input){
+
+    
+
+}
 
 int main(int argc, char *argv[]) {
     char command[BUFFER_LEN] = { 0 };
@@ -26,11 +32,22 @@ int main(int argc, char *argv[]) {
     printf("%s$ ", currDir);
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
 
-        printf("%s$ ", currDir);
-        
         if(strcmp(command, "quit\n") == 0){
             break;
         }
 
+        printf("%s$ ", currDir);
+
+        char *tokenizedComm;
+        parseComm(command);
+
+        
+
+
+        
+        
+
     }
 }
+
+
