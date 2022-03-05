@@ -28,7 +28,6 @@ int main(int argc, char *argv[]) {
         printf("%s$ ", currDir);
         
         if(strcmp(command, "quit\n") == 0){
-
             break;
         }
 
