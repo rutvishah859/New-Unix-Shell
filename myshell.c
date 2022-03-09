@@ -12,7 +12,7 @@
 #endif
 
 #include "myshell.h"
-#include "utility.c"
+// #include "utility.c"
 
 #define BUFFER_LEN 256
 
@@ -24,12 +24,10 @@ int main(int argc, char *argv[]) {
     getcwd(currDir, pMax);
     printf("%s$ ", currDir);
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
-
-        printf("%s$ ", currDir);
-        
         if(strcmp(command, "quit\n") == 0){
             break;
         }
-
+        printf("%s$ ", currDir);
+        pause();
     }
 }
