@@ -49,21 +49,15 @@ void clr(){
 }
 
 //display the contents of the specified directory
-void dir(char* path){
+void dir(){
 	struct dirent *direct;
 	DIR *dr = NULL;
-	if(strcmp(path, "") == 0){
-		dr = opendir(".");
+	dr = opendir(".");
+	if (dr){
+		while ((direct = readdir(dr)) != NULL){
+			printf("%s\n" , direct -> d_name);
+		}
+		closedir(dr);
 	}
-	else{
-		dr = opendir(path);
-	}
-	if (dr == NULL){
-		printf("The directory could not be found");
-	}
-	while ((direct = readdir(dr)) != NULL){
-		printf("%s\n" , direct -> d_name);
-	}
-	closedir(dr);
-
+	
 }
