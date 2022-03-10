@@ -23,7 +23,7 @@
 void cd(char* pwd, char* path);
 void pause_shell();
 void clr();
-void dir(char* path);
+void dir();
 int str_tokens(char* str, char tokens[][256]);
 
 char* strsep(char** stringp, const char* delim)
@@ -110,8 +110,8 @@ int main(int argc, char *argv[]) {
             pauseEnter();
         }
 		    else if (strncmp(parsedArgs[0], "dir", 3) == 0) {
-            dir(tokens[1]);
-			      printf("\n");
+            			dir();
+			      	printf("\n");
         }
 		    else if (strncmp(parsedArgs[0], "cd", 2) == 0) {
 			      cd(pwd, tokens[1]);
