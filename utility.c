@@ -15,9 +15,10 @@ void callEcho(char *s) {
     system(s);
 }
 
-void pause() {
+void pauseEnter() {
     system("read -p 'Press [Enter] key to start backup...' enter");
 }
+
 //change the current working directory
 void cd(char* pwd, char* path){
     int changed_dir = chdir(path);
@@ -29,10 +30,12 @@ void cd(char* pwd, char* path){
         printf("%s> The specified directory was not found\n", pwd);
     }
 }
+
 //clear the screen
 void clr(){
     system("cls||clear");
 }
+
 //display the contents of the specified directory
 void dir(char* path){
     struct dirent *dir;

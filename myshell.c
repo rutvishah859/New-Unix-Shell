@@ -37,9 +37,7 @@ char* strsep(char** stringp, const char* delim)
 }
 
 void parseComm(char* str, char** parsed){
-
     for (int i = 0; i < 100; i++){
-        
         parsed[i] = strsep(&str, " ");
 
         if(parsed[i] == NULL){
@@ -50,9 +48,6 @@ void parseComm(char* str, char** parsed){
             i--;
         }
     }
-    
-    
-
 }
 
 int processCommand(char* str, char** parsed){
@@ -65,30 +60,39 @@ int processCommand(char* str, char** parsed){
 }
 
 int main(int argc, char *argv[]) {
-
     char command[BUFFER_LEN] = { 0 };
-
     char currDir[pMax];
-
     char *parsedArgs[pMax];
-
-    int execFlag = 0;
 
     getcwd(currDir, pMax);
     printf("%s$ ", currDir);
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
-
         if(strcmp(command, "quit\n") == 0){
             break;
         }
 
+        // paese the input command to get all the tokens
         parseComm(command, parsedArgs);
-
+        // print path to current directory 
         printf("%s$ ", currDir);
-
-        printf("%s %s %s\n", parsedArgs[0], parsedArgs[1], parsedArgs[2]);
-        
-        
+        // if the command is 'clr' clear the terminal 
+        if (strncmp(parsedArgs[0], "clr", 3) == 0) {
+            clr();
+        }  
+        // if the command is 'environ' list all the environ strings in the terminal
+        else if (strncmp(parsedArgs[0], "environ", 7) == 0) {
+            environ();
+        }
+        // if the command is 'echo' print the provided string to the terminal 
+        else if (strncmp(parsedArgs[0], "echo", 4) == 0)
+        {
+            sprintf(parsedArgs[0], "%s %s", parsedArgs[0], parsedArgs[1]);
+            callEcho(parsedArgs[0]);
+        }
+        // if the command is 'pause' pause terminal input until Enter is pressed 
+        else if (strncmp(parsedArgs[0], "pause", 5) == 0) {
+            pauseEnter();
+        }
 
     }
 }
