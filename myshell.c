@@ -24,15 +24,27 @@ char currDir[pMax];
 
 int cd(char **args);
 int dir();
+void environ();
+void callEcho(char **s);
+void pauseEnter();
+void clr();
 
 char *builtin[] = {
     "cd",
-    "dir"
+    "dir",
+    "environ",
+    "echo",
+    "pause",
+    "clr"
 };
 
 int (*builtinFunc[]) (char **) = {
     &cd,
-    &dir
+    &dir,
+    &environ,
+    &callEcho,
+    &pauseEnter,
+    &clr
 };
 
 int numBuiltIns(){
@@ -58,7 +70,6 @@ int dir(){
 }
 
 int cd(char **args){
-
     if (args[1] == NULL){
         fprintf(stderr, "expected argument to \"cd\"\n");
     }else {
@@ -72,6 +83,7 @@ int cd(char **args){
     return 1;
 }
 
+// execute inputted command
 int execute(char **args){
 
     if(args[0] == NULL){
@@ -79,7 +91,6 @@ int execute(char **args){
     }
 
     for (int i = 0; i < numBuiltIns(); i++){
-        
         if(strcmp(args[0], builtin[i]) == 0){
             return (*builtinFunc[i])(args);
         }
@@ -133,41 +144,8 @@ int main(int argc, char *argv[]) {
         if(strcmp(command, "quit\n") == 0){
             break;
         }
-
-        // // paese the input command to get all the tokens
-        // parseComm(command, parsedArgs);
-        // // print path to current directory 
-        // printf("%s$ ", currDir);
-        // // if the command is 'clr' clear the terminal 
-        // if (strncmp(parsedArgs[0], "clr", 3) == 0) {
-        //     clr();
-        // }  
-        // // if the command is 'environ' list all the environ strings in the terminal
-        // else if (strncmp(parsedArgs[0], "environ", 7) == 0) {
-        //     environ();
-        // }
-        // // if the command is 'echo' print the provided string to the terminal 
-        // else if (strncmp(parsedArgs[0], "echo", 4) == 0)
-        // {
-        //     sprintf(parsedArgs[0], "%s %s", parsedArgs[0], parsedArgs[1]);
-        //     callEcho(parsedArgs[0]);
-        // }
-        // // if the command is 'pause' pause terminal input until Enter is pressed 
-        // else if (strncmp(parsedArgs[0], "pause", 5) == 0) {
-        //     pauseEnter();
-        // }
-		// else if (strncmp(parsedArgs[0], "dir", 3) == 0) {
-        //         dir();
-        // }
-		// else if (strncmp(parsedArgs[0], "cd", 2) == 0) {
-		//     cd(pwd, tokens[1]);
-		//     strcpy(environment[0], "PWD: ");
-	    //     strcat(environment[0], pwd);
-        // }
         args = splitComm(command);
-
         execute(args);
-
         free(args);
 
         printf("%s$ ", currDir);

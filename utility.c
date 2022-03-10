@@ -11,8 +11,14 @@ void environ() {
     system("printenv");
 }
 
-void callEcho(char *s) {
-    system(s);
+void callEcho(char **s) {
+	for (int i = 1; i < 100; i++){
+		if(s[i] == NULL) {
+			break; 
+		}
+		sprintf(s[0], "%s %s", s[0], s[i]);	
+	}
+    system(s[0]);
 }
 
 void pauseEnter() {
@@ -31,33 +37,7 @@ int str_tokens(char* str, char tokens[][256]){
 	return count;
 }
 
-//change the current working directory
-void cd(char* pwd, char* path){
-    int changed_dir = chdir(path);
-    if (strcmp(path, "") != 0){
-	    if(changed_dir == 0){
-		    getcwd(pwd, 256);
-	    }
-	    printf("%s> No such directory found\n", pwd);
-    }
-}
-
-
 //clear the screen
 void clr(){
     system("cls||clear");
-}
-
-//display the contents of the specified directory
-void dir(){
-	struct dirent *direct;
-	DIR *dr = NULL;
-	dr = opendir(".");
-	if (dr){
-		while ((direct = readdir(dr)) != NULL){
-			printf("%s\n" , direct -> d_name);
-		}
-		closedir(dr);
-	}
-	
 }
