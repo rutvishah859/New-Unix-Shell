@@ -120,11 +120,7 @@ char **splitComm(char *command){
 
 
 int main(int argc, char *argv[]) {
-
     char command[BUFFER_LEN] = { 0 };
-
-    char currDir[pMax];
-
     char **args;
     
 
