@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <io.h>
 #include <dirent.h>
 
 #ifdef _WIN32
@@ -24,7 +23,6 @@ int cd(char **args);
 int dir();
 
 char *builtin[] = {
-
     "cd",
     "dir"
 };
@@ -130,13 +128,9 @@ int main(int argc, char *argv[]) {
     char **args;
     
 
-    int execFlag = 0;
-
     getcwd(currDir, pMax);
     printf("%s$ ", currDir);
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
-
-        char *parsedArgs[pMax];
 
         if(strcmp(command, "quit\n") == 0){
             break;
