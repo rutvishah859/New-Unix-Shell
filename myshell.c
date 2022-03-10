@@ -70,15 +70,15 @@ int processCommand(char* str, char** parsed){
 }
 
 int main(int argc, char *argv[]) {
-	  char pwd[BUFFER_LEN] = {0};
-	  char environment[2][BUFFER_LEN] = {0};
+	char pwd[BUFFER_LEN] = {0};
+	char environment[2][BUFFER_LEN] = {0};
     char command[BUFFER_LEN] = { 0 };
     char currDir[pMax];
     char *parsedArgs[pMax];
     char tokens[MAX_TOKENS][BUFFER_LEN] = {0};
-	  void environ();
-	  void callEcho(char *s);
-	  void pauseEnter();
+	void environ();
+	void callEcho(char *s);
+    void pauseEnter();
 
     getcwd(currDir, pMax);
     printf("%s$ ", currDir);
@@ -109,15 +109,13 @@ int main(int argc, char *argv[]) {
         else if (strncmp(parsedArgs[0], "pause", 5) == 0) {
             pauseEnter();
         }
-		    else if (strncmp(parsedArgs[0], "dir", 3) == 0) {
-            			dir();
-			      	printf("\n");
+		else if (strncmp(parsedArgs[0], "dir", 3) == 0) {
+                dir();
         }
-		    else if (strncmp(parsedArgs[0], "cd", 2) == 0) {
-			      cd(pwd, tokens[1]);
-			      strcpy(environment[0], "PWD: ");
-			      strcat(environment[0], pwd);
-		    }
-
+		else if (strncmp(parsedArgs[0], "cd", 2) == 0) {
+		    cd(pwd, tokens[1]);
+		    strcpy(environment[0], "PWD: ");
+	        strcat(environment[0], pwd);
+        }
     }
 }
