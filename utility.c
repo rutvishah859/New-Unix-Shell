@@ -33,18 +33,22 @@ void cd(char* pwd, char* path){
 void clr(){
     system("cls||clear");
 }
-//display the contents of the specified directory
+//displays the directory
 void dir(char* path){
-    struct dirent *dir;
-    DIR *d = NULL;
-    d = opendir(path);
-    if(d == NULL){
-        printf("Could not find the directory specified by pathname: %s\n", path);
-    }
-    while ((dir == readdir(d))!= NULL){
-        printf("%s\n", dir->d_name);
-    }
-
-    closedir(d);
+	struct dirent *direct;
+	DIR *dr = NULL;
+	if(strcmp(path, "") == 0){
+		dr = opendir(".");
+	}
+	else{
+		dr = opendir(path);
+	}
+	if (dr == NULL){
+		printf("The directory could not be found");
+	}
+	while ((direct = readdir(dr)) != NULL){
+		printf("%s\n" , direct -> d_name);
+	}
+	closedir(dr);
 
 }
