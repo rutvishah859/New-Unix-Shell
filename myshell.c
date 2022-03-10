@@ -8,11 +8,7 @@
 #define pMax _MAX_PATH
 #else
 #include <unistd.h>
-<<<<<<< HEAD
 #define pMax FILENAME_MAX
-=======
-#define pMax FILENAME_MAX 
->>>>>>> 94a70b6a250cb60da4414d27dd5403a87c52f8a9
 #endif
 
 #include "myshell.h"
@@ -20,16 +16,63 @@
 
 #define BUFFER_LEN 256
 
-void parseComm(char *input){
+char* strsep(char** stringp, const char* delim)
+{
+  char* start = *stringp;
+  char* p;
 
+  p = (start != NULL) ? strpbrk(start, delim) : NULL;
+
+  if (p == NULL)
+  {
+    *stringp = NULL;
+  }
+  else
+  {
+    *p = '\0';
+    *stringp = p + 1;
+  }
+
+  return start;
+}
+
+void parseComm(char* str, char** parsed){
+
+    for (int i = 0; i < 100; i++){
+        
+        parsed[i] = strsep(&str, " ");
+
+        if(parsed[i] == NULL){
+            break;
+        }
+
+        if(strlen(parsed[i]) == 0){
+            i--;
+        }
+    }
+    
     
 
 }
 
+int processCommand(char* str, char** parsed){
+
+
+    parseComm(str, parsed);
+
+    return 0;
+
+}
+
 int main(int argc, char *argv[]) {
+
     char command[BUFFER_LEN] = { 0 };
 
     char currDir[pMax];
+
+    char *parsedArgs[pMax];
+
+    int execFlag = 0;
 
     getcwd(currDir, pMax);
     printf("%s$ ", currDir);
@@ -39,14 +82,11 @@ int main(int argc, char *argv[]) {
             break;
         }
 
+        parseComm(command, parsedArgs);
+
         printf("%s$ ", currDir);
 
-        char *tokenizedComm;
-        parseComm(command);
-
-        
-
-
+        printf("%s %s %s\n", parsedArgs[0], parsedArgs[1], parsedArgs[2]);
         
         
 
