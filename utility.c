@@ -42,17 +42,6 @@ void cd(char* pwd, char* path){
     }
 }
 
-//change the current working directory
-void cd(char* pwd, char* path){
-    int changed_dir = chdir(path);
-    if (changed_dir == 0){
-        printf("Current working directory has been changed to: %s\n ", path);
-        getcwd(pwd, 256);
-    }
-    else{
-        printf("%s> The specified directory was not found\n", pwd);
-    }
-}
 
 //clear the screen
 void clr(){
