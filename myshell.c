@@ -1,5 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <dirent.h>
+#include <sys/types.h>
 #include <string.h>
 #include <stdbool.h>
 
@@ -15,6 +18,13 @@
 // #include "utility.c"
 
 #define BUFFER_LEN 256
+#define MAX_TOKENS 10
+
+void cd(char* pwd, char* path);
+void pause_shell();
+void clr();
+void dir(char* path);
+int str_tokens(char* str, char tokens[][256]);
 
 char* strsep(char** stringp, const char* delim)
 {
@@ -63,6 +73,7 @@ int main(int argc, char *argv[]) {
     char command[BUFFER_LEN] = { 0 };
     char currDir[pMax];
     char *parsedArgs[pMax];
+    char tokens[MAX_TOKENS][BUFFER_LEN] = {0};
 
     getcwd(currDir, pMax);
     printf("%s$ ", currDir);
