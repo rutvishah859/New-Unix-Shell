@@ -10,7 +10,7 @@ where `<pathname>/myshell` is the full path for the shell executable (the one fr
 ### `cd <directory>` - change directory
 **Description:**
 <br />
-Changes the current default directory to <directory>. If the `<directory>` argument is not present, it reports the current directory. If the directory does no exist an appropriate error is reported.
+Changes the current default directory to <directory>. If the `<directory>` argument is not present, it reports the current directory. If the directory does no exist an appropriate error is reported. Use `cd..` command to move back one directory.
 
 ### `clr` - clear the screen
 **Description:**
@@ -21,7 +21,6 @@ All text on the screen is removed, resulting in an empty screen.
 **Description:**
 <br />
 Lists the contents of directory `<directory>` and information about the files.
-Flag options include `-l` (uses a long listing format).
 
 ### `environ` - list all the environment strings
 **Description:**
@@ -67,3 +66,8 @@ stdout will be possible for the internal commands `dir`, `environ`, `echo`, and 
 **Description:**
 <br />
 An ampersand (`&`) at the end of the command line will cause the shell to return to the command line prompt immediately after launching that program. The shell will execute the command in the background in a subshell and will not wait for the command to finish.
+
+### `myshell <fileName>` - command line input from a file
+**Description:**
+<br />
+The shell will take its command line input from the file specified. The file is assumed to contain a set of command lines for the shell to process. Once the end-of-file is reached, the shell will exit.
