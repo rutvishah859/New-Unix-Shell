@@ -24,7 +24,7 @@ Lists the contents of directory `<directory>` and information about the files.
 Flag options include `-l` (uses a long listing format).
 
 ### `environ` - list all the environment strings
-**Description**
+**Description:**
 <br />
 Lists all environment strings in the shell. Every process has an environment associated with it and that environment consists of environment variables which are displayed with this command. 
 
