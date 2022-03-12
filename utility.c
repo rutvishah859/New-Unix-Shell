@@ -44,16 +44,16 @@ void cd(char* pwd, char* path){
 }
 
 //change the current working directory
-void cd(char* pwd, char* path){
-    int changed_dir = chdir(path);
-    if (changed_dir == 0){
-        printf("Current working directory has been changed to: %s\n ", path);
-        getcwd(pwd, 256);
-    }
-    else{
-        printf("%s> The specified directory was not found\n", pwd);
-    }
-}
+// void cd(char* pwd, char* path){
+//     int changed_dir = chdir(path);
+//     if (changed_dir == 0){
+//         printf("Current working directory has been changed to: %s\n ", path);
+//         getcwd(pwd, 256);
+//     }
+//     else{
+//         printf("%s> The specified directory was not found\n", pwd);
+//     }
+// }
 
 //clear the screen
 void clr(){
@@ -85,6 +85,8 @@ void readfile(const char* filename) {
 	int bufferLength = 255;
 	char buffer[bufferLength];
 	char str_arr[255];
+	char ** args;
+
 	FILE *fptr;
 	fptr = fopen("./file.txt", "r");
 
@@ -92,8 +94,15 @@ void readfile(const char* filename) {
 		printf("Couldn't open file\n");
 	}
     
-	while (fgets(buffer, bufferLength, fptr)) {
-        printf("%s", buffer);
+	while (fgets(buffer, bufferLength, fptr) != NULL) {
+        // printf("%s", buffer);
+		args = splitComm(buffer);
+		execute(args);
+		// execute the command <buffer>
+		free(args);
     }
+	// for (int i = 0; i < sizeof(str_arr); i++) {
+	// 	printf("%s", str_arr[i]);
+	// }
     fclose(fptr);
 }
