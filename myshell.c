@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <string.h>
 #include <dirent.h>
 
@@ -42,7 +43,7 @@ char *builtin[] = {
 };
 
 // functions associated with each valid command line input
-int (*builtinFunc[]) (char **) = {
+int (builtinFunc[]) (char *) = {
     &cd,
     &dir,
     &environ,
@@ -85,6 +86,31 @@ int cd(char **args){
     return 1;
 }
 
+int launch(char **args)
+{
+  pid_t pid, wpid;
+  int status;
+
+  pid = fork();
+  if (pid == 0) {
+    // Child process
+    if (execvp(args[0], args) == -1) {
+      perror("lsh");
+    }
+    exit(EXIT_FAILURE);
+  } else if (pid < 0) {
+    // Error forking
+    perror("lsh");
+  } else {
+    // Parent process
+    do {
+      wpid = waitpid(pid, &status, WUNTRACED);
+    } while (!WIFEXITED(status) && !WIFSIGNALED(status));
+  }
+
+  return 1;
+}
+
 // execute inputted command
 int execute(char **args){
 
@@ -98,7 +124,7 @@ int execute(char **args){
         }
     }
 
-    return 1;
+    return launch(args);
     
 }
 
@@ -106,7 +132,7 @@ int execute(char **args){
 char **splitComm(char *command){
     int bufsize = BUFFER_LEN, pos = 0;
 
-    char **tokens = malloc(bufsize * sizeof(char*));
+    char *tokens = malloc(bufsize * sizeof(char));
     char *token;
 
     if(!tokens){
