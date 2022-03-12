@@ -1,6 +1,0 @@
-make.exe --dry-run --keep-going --print-directory
-make: Entering directory 'c:/Users/Kru/Desktop/OntarioTechU/3rd Yr Sem 2/Operating Systems/OS Lab 02/New-Unix-Shell'
-gcc -Wall myshell.c utility.c -o myshell
-./myshell
-make: Leaving directory 'c:/Users/Kru/Desktop/OntarioTechU/3rd Yr Sem 2/Operating Systems/OS Lab 02/New-Unix-Shell'
- 
