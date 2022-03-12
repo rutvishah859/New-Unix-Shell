@@ -7,7 +7,7 @@
 #include <dirent.h>
 #include "myshell.h"
 
-// returns the number of build in functions
+// returns the number of built-in functions
 int numBuiltIns(){
     return sizeof(builtin) / sizeof(char *);
 }
@@ -21,13 +21,13 @@ int dir(char **args){
     char directory[pMax] = ""; 
 
     if(d){
-        // concat name of each item in direcotry into directory string var
+        // concat name of each item in directory into directory string var
         while ((dir = readdir(d)) != NULL) {
             sprintf(directory, "%s\n%s", directory, dir->d_name);	
         }
         closedir(d);
     }
-    // if there is stdout redirection (> or >>) then write the direcotry content into file else print to shell
+    // if there is stdout redirection (> or >>) then write the directory content into file, otherwise print to shell
     for (int i = 1; i < 100; i++){
         // if there is no redirection, print to shell
 		if (args[i] == NULL){
@@ -122,16 +122,16 @@ int launch(char **args)
 
     pid = fork();
     if (pid == 0) {
-        // Child process
+        // child process
         if (execvp(args[0], args) == -1) {
         perror("lsh");
         }
         exit(EXIT_FAILURE);
     } else if (pid < 0) {
-        // Error forking
+        // error forking
         perror("lsh");
     } else {
-        // Parent process
+        // parent process
         do {
         wpid = waitpid(pid, &status, WUNTRACED);
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
@@ -180,6 +180,7 @@ int main(int argc, char *argv[]) {
     
     getcwd(currDir, pMax); // get current path to directory 
     printf("%s$ ", currDir); // print current directory
+    
     // get shell input until command doesn't equal quit
     while (fgets(command, BUFFER_LEN, stdin) != NULL){
         // if command is quit exit the shell
