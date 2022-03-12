@@ -11,8 +11,14 @@ void environ() {
     system("printenv");
 }
 
-void callEcho(char *s) {
-    system(s);
+void callEcho(char **s) {
+	for (int i = 1; i < 100; i++){
+		if(s[i] == NULL) {
+			break; 
+		}
+		sprintf(s[0], "%s %s", s[0], s[i]);	
+	}
+    system(s[0]);
 }
 
 void pauseEnter() {
@@ -31,50 +37,12 @@ int str_tokens(char* str, char tokens[][256]){
 	return count;
 }
 
-//change the current working directory
-void cd(char* pwd, char* path){
-    int changed_dir = chdir(path);
-    if (strcmp(path, "") != 0){
-	    if(changed_dir == 0){
-		    getcwd(pwd, 256);
-	    }
-	    printf("%s> No such directory found\n", pwd);
-    }
-}
-
-//change the current working directory
-void cd(char* pwd, char* path){
-    int changed_dir = chdir(path);
-    if (changed_dir == 0){
-        printf("Current working directory has been changed to: %s\n ", path);
-        getcwd(pwd, 256);
-    }
-    else{
-        printf("%s> The specified directory was not found\n", pwd);
-    }
-}
-
 //clear the screen
 void clr(){
     system("cls||clear");
 }
 
-//display the contents of the specified directory
-void dir(char* path){
-	struct dirent *direct;
-	DIR *dr = NULL;
-	if(strcmp(path, "") == 0){
-		dr = opendir(".");
-	}
-	else{
-		dr = opendir(path);
-	}
-	if (dr == NULL){
-		printf("The directory could not be found");
-	}
-	while ((direct = readdir(dr)) != NULL){
-		printf("%s\n" , direct -> d_name);
-	}
-	closedir(dr);
-
+// display the UNIX manual in terminal
+void help() {
+	system("more README.md"); 
 }
