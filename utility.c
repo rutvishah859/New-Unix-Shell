@@ -41,3 +41,8 @@ int str_tokens(char* str, char tokens[][256]){
 void clr(){
     system("cls||clear");
 }
+
+// display the UNIX manual in terminal
+void help() {
+	system("more README.md"); 
+}

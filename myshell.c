@@ -15,36 +15,41 @@
 #endif
 
 #include "myshell.h"
-// #include "utility.c"
 
 #define BUFFER_LEN 256
 #define DELIM " \t\r\n\a"
 
 char currDir[pMax];
 
+// all the command line functions
 int cd(char **args);
 int dir();
 void environ();
 void callEcho(char **s);
 void pauseEnter();
 void clr();
+void help();
 
+// all the build in command line commands that shell supports
 char *builtin[] = {
     "cd",
     "dir",
     "environ",
     "echo",
     "pause",
-    "clr"
+    "clr",
+    "help"
 };
 
+// functions associated with each valid command line input
 int (*builtinFunc[]) (char **) = {
     &cd,
     &dir,
     &environ,
     &callEcho,
     &pauseEnter,
-    &clr
+    &clr,
+    &help
 };
 
 int numBuiltIns(){
@@ -52,11 +57,8 @@ int numBuiltIns(){
 }
 
 int dir(){
-
     DIR *d;
-
     struct dirent *dir;
-
     d = opendir(".");
 
     if(d){
@@ -100,8 +102,8 @@ int execute(char **args){
     
 }
 
+// splits command at space to get each token of the command
 char **splitComm(char *command){
-
     int bufsize = BUFFER_LEN, pos = 0;
 
     char **tokens = malloc(bufsize * sizeof(char*));
@@ -149,8 +151,5 @@ int main(int argc, char *argv[]) {
         free(args);
 
         printf("%s$ ", currDir);
-        
-        
-
     }
 }
