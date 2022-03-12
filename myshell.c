@@ -56,17 +56,40 @@ int numBuiltIns(){
     return sizeof(builtin) / sizeof(char *);
 }
 
-int dir(){
+int dir(char **args){
     DIR *d;
     struct dirent *dir;
     d = opendir(".");
+    char directory[pMax] = ""; 
 
     if(d){
         while ((dir = readdir(d)) != NULL) {
-            printf("%s\n", dir->d_name);
+            sprintf(directory, "%s\n%s", directory, dir->d_name);	
         }
         closedir(d);
     }
+    for (int i = 1; i < 100; i++){
+		if (args[i] == NULL){
+            printf("%s\n", directory);
+            break;
+        }
+        if (args[i+1] == NULL) {
+			printf("Error: expected arg after %s \n", args[i]); 
+            return;
+		}
+		if ((strcmp(args[i], ">") == 0)){
+			FILE *fptr = fopen(args[i+1],"w");
+            fprintf(fptr,"%s",directory);
+            fclose(fptr);
+            break;
+		}
+        else if (strcmp(args[i], ">>") == 0){
+            FILE *fptr = fopen(args[i+1],"a");
+            fprintf(fptr,"%s",directory);
+            fclose(fptr);
+            break;
+        }
+	}
 
     return(0);
 }

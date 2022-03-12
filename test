@@ -1,1 +1,12 @@
-test
+
+myshell.c
+myshell.exe
+.vscode
+Makefile
+README.md
+.git
+..
+myshell.h
+.
+utility.c
+myshellhello world

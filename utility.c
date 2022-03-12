@@ -12,10 +12,10 @@ void environ(char **args) {
 		if (args[i] == NULL){
             break;
         }
-		printf("%s\n", args[i+1]);
 		if ((strcmp(args[i], ">") == 0) || (strcmp(args[i], ">>") == 0)){
 			if (args[i+1] == NULL) {
 				printf("Error: expected arg after %s \n", args[i]); 
+				return;
 			}
 			sprintf(call, "%s %s %s", call, args[i], args[i+1]);	
 			break;
@@ -66,6 +66,7 @@ void help(char **args) {
 		if ((strcmp(args[i], ">") == 0) || (strcmp(args[i], ">>") == 0)){
 			if (args[i+1] == NULL) {
 				printf("Error: expected arg after %s \n", args[i]); 
+				return;
 			}
 			sprintf(call, "%s %s %s", call, args[i], args[i+1]);	
 			break;
