@@ -5,6 +5,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <string.h>
+#include <sys/stat.h>
 
 void environ() {
     // be able to support piping
@@ -77,4 +78,22 @@ void dir(char* path){
 	}
 	closedir(dr);
 
+}
+
+// read and execute the commands in the given file
+void readfile(const char* filename) {
+	int bufferLength = 255;
+	char buffer[bufferLength];
+	char str_arr[255];
+	FILE *fptr;
+	fptr = fopen("./file.txt", "r");
+
+	if (fptr == NULL) {
+		printf("Couldn't open file\n");
+	}
+    
+	while (fgets(buffer, bufferLength, fptr)) {
+        printf("%s", buffer);
+    }
+    fclose(fptr);
 }

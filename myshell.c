@@ -24,6 +24,7 @@ void cd(char* pwd, char* path);
 void pause_shell();
 void clr();
 void dir(char* path);
+void readfile(char* filename);
 int str_tokens(char* str, char tokens[][256]);
 
 char* strsep(char** stringp, const char* delim)
@@ -61,7 +62,6 @@ void parseComm(char* str, char** parsed){
 }
 
 int processCommand(char* str, char** parsed){
-
 
     parseComm(str, parsed);
 
@@ -104,7 +104,10 @@ int main(int argc, char *argv[]) {
         else if (strncmp(parsedArgs[0], "pause", 5) == 0) {
             pauseEnter();
         }
-
+        else if (strncmp(parsedArgs[0], "myshell", 7) == 0) {
+            const char* filename = parsedArgs[1];
+            readfile(filename);
+        }
     }
 }
 
