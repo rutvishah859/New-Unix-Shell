@@ -5,52 +5,7 @@
 #include <sys/types.h>
 #include <string.h>
 #include <dirent.h>
-
-#ifdef _WIN32
-#include <io.h>
-#define pMax _MAX_PATH
-#else
-#include <unistd.h>
-#define pMax FILENAME_MAX
-#endif
-
 #include "myshell.h"
-
-#define BUFFER_LEN 256
-#define DELIM " \t\r\n\a"
-
-char currDir[pMax];
-
-// all the command line functions
-int cd(char **args);
-int dir();
-void environ(char **args);
-void callEcho(char **s);
-void pauseEnter();
-void clr();
-void help(char **s);
-
-// all the build in command line commands that shell supports
-char *builtin[] = {
-    "cd",
-    "dir",
-    "environ",
-    "echo",
-    "pause",
-    "clr",
-    "help"
-};
-
-// functions associated with each valid command line input
-int (*builtinFunc[]) (char **) = {
-    &cd,
-    &dir,
-    &environ,
-    &callEcho,
-    &pauseEnter,
-    &clr,
-    &help
-};
 
 int numBuiltIns(){
     return sizeof(builtin) / sizeof(char *);
@@ -106,6 +61,28 @@ int cd(char **args){
     }
 
     return 1;
+}
+
+
+// read and execute the commands in the given file
+void myshell(char **filename) {
+	int bufferLength = 255;
+	char buffer[bufferLength];
+	char str_arr[255];
+	char ** args;
+
+	FILE *fptr;
+	fptr = fopen(filename[1], "r");
+
+	if (fptr == NULL) {
+		printf("Couldn't open file\n");
+	}
+    
+	while (fgets(buffer, bufferLength, fptr) != NULL) {
+		args = splitComm(buffer);
+		execute(args);
+		free(args);
+    }
 }
 
 // execute inputted command
