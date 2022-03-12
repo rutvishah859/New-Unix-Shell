@@ -24,11 +24,11 @@ char currDir[pMax];
 // all the command line functions
 int cd(char **args);
 int dir();
-void environ();
+void environ(char **args);
 void callEcho(char **s);
 void pauseEnter();
 void clr();
-void help();
+void help(char **s);
 
 // all the build in command line commands that shell supports
 char *builtin[] = {
@@ -87,7 +87,6 @@ int cd(char **args){
 
 // execute inputted command
 int execute(char **args){
-
     if(args[0] == NULL){
         return 1;
     }
@@ -99,7 +98,6 @@ int execute(char **args){
     }
 
     return 1;
-    
 }
 
 // splits command at space to get each token of the command
@@ -115,9 +113,9 @@ char **splitComm(char *command){
     }
 
     token = strtok(command, DELIM);
-  while (token != NULL) {
-    tokens[pos] = token;
-    pos++;
+    while (token != NULL) {
+        tokens[pos] = token;
+        pos++;
 
     if (pos >= bufsize) {
       bufsize += BUFFER_LEN;
