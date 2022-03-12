@@ -20,7 +20,7 @@ void environ(char **args) {
 				printf("Error: expected arg after %s \n", args[i]); 
 				return;
 			}
-			// sends formatted output to the string
+			// sends formatted output to the string call
 			sprintf(call, "%s %s %s", call, args[i], args[i+1]);	
 			break;
 		}
@@ -36,7 +36,7 @@ void callEcho(char **s) {
 		if(s[i] == NULL) {
 			break; 
 		}
-		// sends formatted output to the string
+		// sends formatted output to the string s[0]
 		sprintf(s[0], "%s %s", s[0], s[i]);	
 	}
 	// sends echo command to the system so it can make the call
